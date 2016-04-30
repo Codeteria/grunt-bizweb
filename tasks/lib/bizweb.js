@@ -538,4 +538,4 @@ module.exports = function(grunt) {
     };
 
     return bizweb;
-}
+};
