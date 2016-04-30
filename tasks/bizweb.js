@@ -61,5 +61,5 @@ module.exports = function(grunt) {
     /**
      * Grunt watch event
      */
-    grunt.event.on('watch', grunt.watchHandler);
+    grunt.event.on('watch', bizweb.watchHandler);
 };
