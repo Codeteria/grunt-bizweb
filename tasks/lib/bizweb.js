@@ -88,7 +88,7 @@ module.exports = function(grunt) {
             return false;
         } else if (!bizweb._isWhitelistedPath(filepath)) {
             var relative = bizweb._makePathRelative(filepath);
-            bizweb.notify('File "' + relative + '" not allowed by Shopify whitelist');
+            bizweb.notify('File "' + relative + '" not allowed by Bizweb whitelist');
             return false;
         }
 
@@ -196,7 +196,7 @@ module.exports = function(grunt) {
         err = err || false;
 
         if (config.options.disable_growl_notifications !== false) {
-            growl(msg, { title: 'Grunt Shopify'});
+            growl(msg, { title: 'Grunt Bizweb'});
         }
 
         if (!config.options.disable_grunt_log) {
@@ -283,7 +283,7 @@ module.exports = function(grunt) {
         }
 
         function onUpdate(err, resp) {
-            if (err && err.type === 'ShopifyInvalidRequestError') {
+            if (err && err.type === 'BizwebInvalidRequestError') {
                 bizweb.notify('Error uploading file ' + JSON.stringify(err.detail), true);
             } else if (!err) {
                 bizweb.notify('File "' + key + '" uploaded.');
@@ -300,7 +300,7 @@ module.exports = function(grunt) {
     };
 
     /*
-     * Deploy an entire theme to Shopify.
+     * Deploy an entire theme to Bizweb.
      *
      * @param {Function} done
      */
@@ -326,7 +326,7 @@ module.exports = function(grunt) {
         async.eachSeries(filepaths, function(filepath, next) {
             bizweb.upload(path.join(basePath, filepath), next);
         }, function(err, resp) {
-            if (err && err.type === 'ShopifyInvalidRequestError') {
+            if (err && err.type === 'BizwebInvalidRequestError') {
                 bizweb.notify('Error deploying theme ' + JSON.stringify(err.detail), true);
             } else if (!err) {
                 bizweb.notify('Theme deploy complete.');
@@ -337,7 +337,7 @@ module.exports = function(grunt) {
     };
 
     /*
-     * Download an asset from Shopify.
+     * Download an asset from Bizweb.
      *
      * @param {string} filepath
      * @param {Function} done
@@ -349,7 +349,7 @@ module.exports = function(grunt) {
             console.log(key);
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'ShopifyInvalidRequestError') {
+                if (err.type === 'BizwebInvalidRequestError') {
                     bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
                 }
 
@@ -377,7 +377,7 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'ShopifyInvalidRequestError') {
+                if (err.type === 'BizwebInvalidRequestError') {
                     bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
                 }
 
@@ -410,7 +410,7 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'ShopifyInvalidRequestError') {
+                if (err.type === 'BizwebInvalidRequestError') {
                     bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
                 }
 
@@ -451,7 +451,7 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'ShopifyInvalidRequestError') {
+                if (err.type === 'BizwebInvalidRequestError') {
                     bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
                 }
 
@@ -537,5 +537,5 @@ module.exports = function(grunt) {
         }
     };
 
-    return shopify;
+    return bizweb;
 }
