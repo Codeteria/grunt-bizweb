@@ -362,10 +362,14 @@ module.exports = function(grunt) {
                 }
             }
 
+            if (!obj) {
+                return done(new Error('API call limited'));
+            }
+
             if (!obj.asset) {
                 return done(new Error('Failed to get asset data'));
             }
-            console.log(obj.asset);
+            
             bizweb._saveAsset(key, obj, done);
         }
 
@@ -394,7 +398,10 @@ module.exports = function(grunt) {
                         bizweb.sync(filepath, done);
                     }, 5000);
                 }
-                
+            }
+
+            if (!obj) {
+                return done(new Error('API call limited'));
             }
 
             if (!obj.asset) {
@@ -434,7 +441,10 @@ module.exports = function(grunt) {
                         bizweb.downloadTheme(done);
                     }, 5000);
                 }
-                
+            }
+
+            if (!obj) {
+                return done(new Error('API call limited'));
             }
 
             if (!obj.assets) {
@@ -482,7 +492,10 @@ module.exports = function(grunt) {
                         bizweb.syncTheme(done);
                     }, 5000);
                 }
-                
+            }
+
+            if (!obj) {
+                return done(new Error('API call limited'));
             }
 
             if (!obj.assets) {
@@ -523,8 +536,11 @@ module.exports = function(grunt) {
                     setTimeout(function(){
                         bizweb.themes(done);
                     }, 5000);
-                }
-                
+                } 
+            }
+
+            if (!obj) {
+                return done(new Error('API call limited'));
             }
 
             if (!obj.themes) {
