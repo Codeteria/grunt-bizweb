@@ -7,21 +7,21 @@
     "node": ">= 0.8.0"
   },
   "peerDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-watch": "^0.6.1",
-    "growl": "^1.7.0"
+    "grunt": "*",
+    "grunt-contrib-watch": "*",
+    "growl": "*"
   },
   "devDependancies": {
-    "grunt-contrib-jshint": "~0.1.1"
+    "grunt-contrib-jshint": "*"
   },
   "keywords": [
     "Bizweb",
     "Theme"
   ],
   "dependencies": {
-    "async": "^0.2.10",
-    "isbinaryfile": "^2.0.4",
-    "my-bizweb-api": "^0.1.4"
+    "async": "*",
+    "isbinaryfile": "*",
+    "my-bizweb-api": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
