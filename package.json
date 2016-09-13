@@ -1,6 +1,6 @@
 {
   "name": "grunt-bizweb",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "",
   "main": "Gruntfile.js",
   "engines": {
@@ -11,9 +11,7 @@
     "grunt-contrib-watch": "~1.0.0",
     "growl": "^1.9.2"
   },
-  "devDependancies": {
-    
-  },
+  "devDependancies": {},
   "keywords": [
     "Bizweb",
     "Theme"
