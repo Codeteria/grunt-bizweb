@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 	var bizweb = {};
     bizweb._api = false;
     bizweb._basePath = false;
+    bizweb._delayTime = 1000;
 
     /*
      * Get the Bizweb API instance.
@@ -358,7 +359,7 @@ module.exports = function(grunt) {
                 } else {
                     setTimeout(function(){
                         bizweb.download(filepath, done);
-                    }, 5000);
+                    }, bizweb._delayTime);
                 }
             } else {
                 if (!obj.asset) {
@@ -392,7 +393,7 @@ module.exports = function(grunt) {
                 } else {
                     setTimeout(function(){
                         bizweb.sync(filepath, done);
-                    }, 5000);
+                    }, bizweb._delayTime);
                 }
             } else {
                 if (!obj.asset) {
@@ -431,7 +432,7 @@ module.exports = function(grunt) {
                 } else {
                     setTimeout(function(){
                         bizweb.downloadTheme(done);
-                    }, 5000);
+                    }, bizweb._delayTime);
                 }
             } else {
                 if (!obj.assets) {
@@ -478,7 +479,7 @@ module.exports = function(grunt) {
                 } else {
                     setTimeout(function(){
                         bizweb.syncTheme(done);
-                    }, 5000);
+                    }, bizweb._delayTime);
                 }
             } else {
                 if (!obj.assets) {
@@ -519,7 +520,7 @@ module.exports = function(grunt) {
                 } else {
                     setTimeout(function(){
                         bizweb.themes(done);
-                    }, 5000);
+                    }, bizweb._delayTime);
                 } 
             } else {
                 if (!obj.themes) {
