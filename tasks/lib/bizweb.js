@@ -290,9 +290,11 @@ module.exports = function(grunt) {
                 bizweb.notify('File "' + key + '" uploaded.');
             }
 
+            console.log("CP3");
             done(err);
         }
 
+        console.log("CP2");
         if (themeId) {
             api.asset.update(themeId, props, onUpdate);
         } else {
@@ -560,6 +562,7 @@ module.exports = function(grunt) {
                 case 'added':
                 case 'changed':
                 case 'renamed':
+                    console.log("CP1");
 	                bizweb.upload(filepath, errorHandler);
 	                break;
             }
