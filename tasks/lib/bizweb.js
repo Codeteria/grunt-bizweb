@@ -365,7 +365,7 @@ module.exports = function(grunt) {
             if (!obj.asset) {
                 return done(new Error('Failed to get asset data'));
             }
-
+            console.log(obj.asset);
             bizweb._saveAsset(key, obj, done);
         }
 
