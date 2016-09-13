@@ -1,6 +1,6 @@
 {
   "name": "grunt-bizweb",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "",
   "main": "Gruntfile.js",
   "engines": {
