@@ -247,9 +247,9 @@ module.exports = function(grunt) {
      *
      * Assets need to be in a suitable directory.
      *      - Liquid templates => "templates/"
-     *      - Liquid layouts => "layout/"
+     *      - Liquid layouts => "layouts/"
      *      - Liquid snippets => "snippets/"
-     *      - Theme settings => "config/"
+     *      - Theme settings => "configs/"
      *      - General assets => "assets/"
      *      - Language files => "locales/"
      *
@@ -310,8 +310,8 @@ module.exports = function(grunt) {
         var basePath = bizweb._getBasePath();
         var filepaths = grunt.file.expand({ cwd: basePath }, [
             'assets/*.*',
-            'config/*.*',
-            'layout/*.*',
+            'configs/*.*',
+            'layouts/*.*',
             'locales/*.*',
             'snippets/*.*',
             'templates/*.*',
@@ -383,11 +383,18 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'BizwebInvalidRequestError') {
-                    bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
-                }
+                if (err.type !== 'BizwebCallLimitError') {
+                    if (err.type === 'BizwebInvalidRequestError') {
+                        bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
+                    }
 
-                return done(err);
+                    return done(err); 
+                } else {
+                    setTimeout(function(){
+                        bizweb.sync(filepath, done);
+                    }, 5000);
+                }
+                
             }
 
             if (!obj.asset) {
@@ -416,11 +423,18 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'BizwebInvalidRequestError') {
-                    bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
-                }
+                if (err.type !== 'BizwebCallLimitError') {
+                    if (err.type === 'BizwebInvalidRequestError') {
+                        bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
+                    }
 
-                return done(err);
+                    return done(err);
+                } else {
+                    setTimeout(function(){
+                        bizweb.downloadTheme(filepath, done);
+                    }, 5000);
+                }
+                
             }
 
             if (!obj.assets) {
@@ -457,11 +471,18 @@ module.exports = function(grunt) {
 
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'BizwebInvalidRequestError') {
-                    bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
-                }
+                if (err.type !== 'BizwebCallLimitError') {
+                    if (err.type === 'BizwebInvalidRequestError') {
+                        bizweb.notify('Error downloading theme ' + JSON.stringify(err.detail), true);
+                    }
 
-                return done(err);
+                    return done(err);
+                } else {
+                    setTimeout(function(){
+                        bizweb.syncTheme(filepath, done);
+                    }, 5000);
+                }
+                
             }
 
             if (!obj.assets) {
@@ -496,7 +517,14 @@ module.exports = function(grunt) {
 
         api.theme.list(function(err, obj) {
             if (err) {
-                return done(err);
+                if (err.type !== 'BizwebCallLimitError') {
+                    return done(err);
+                } else {
+                    setTimeout(function(){
+                        bizweb.themes(done);
+                    }, 5000);
+                }
+                
             }
 
             if (!obj.themes) {
