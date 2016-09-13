@@ -349,11 +349,17 @@ module.exports = function(grunt) {
             console.log(key);
         function onRetrieve(err, obj) {
             if (err) {
-                if (err.type === 'BizwebInvalidRequestError') {
-                    bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
-                }
+                if (err.type !== 'BizwebCallLimitError') {
+                    if (err.type === 'BizwebInvalidRequestError') {
+                        bizweb.notify('Error downloading asset file ' + JSON.stringify(err.detail), true);
+                    }
 
-                return done(err);
+                    return done(err);    
+                } else {
+                    setTimeout(function(){
+                        bizweb.download(filepath, done);
+                    }, 5000);
+                }
             }
 
             if (!obj.asset) {
