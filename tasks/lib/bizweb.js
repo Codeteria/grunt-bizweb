@@ -284,19 +284,15 @@ module.exports = function(grunt) {
         }
 
         function onUpdate(err, resp) {
-            console.log("CP2");
             if (err && err.type === 'BizwebInvalidRequestError') {
-                console.log("CP3");
                 bizweb.notify('Error uploading file ' + JSON.stringify(err.detail), true);
             } else if (!err) {
-                console.log("CP4");
                 bizweb.notify('File "' + key + '" uploaded.');
             }
 
             done(err);
         }
 
-        console.log("CP1");
         if (themeId) {
             api.asset.update(themeId, props, onUpdate);
         } else {
