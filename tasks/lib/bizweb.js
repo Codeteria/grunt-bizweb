@@ -560,6 +560,7 @@ module.exports = function(grunt) {
                 case 'added':
                 case 'changed':
                 case 'renamed':
+                    console.log(filepath);
 	                bizweb.upload(filepath, errorHandler);
 	                break;
             }
