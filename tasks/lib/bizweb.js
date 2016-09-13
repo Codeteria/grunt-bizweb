@@ -168,8 +168,8 @@ module.exports = function(grunt) {
 
         if (typeof obj.asset.value !== 'undefined') {
             contents = obj.asset.value;
-        } else if (typeof obj.asset.attachment !== 'undefined') {
-            contents = new Buffer(obj.asset.attachment, 'base64');
+        } else if (typeof obj.asset.base64 !== 'undefined') {
+            contents = new Buffer(obj.asset.base64, 'base64');
         } else {
             return done(new Error('Parsed object is not complete'));
         }
@@ -277,7 +277,7 @@ module.exports = function(grunt) {
         bizweb.notify('Uploading "'+ key +'"');
 
         if (isBinary) {
-            props.asset.attachment = contents.toString('base64');
+            props.asset.base64 = contents.toString('base64');
         } else {
             props.asset.value = contents.toString();
         }
