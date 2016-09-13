@@ -360,17 +360,13 @@ module.exports = function(grunt) {
                         bizweb.download(filepath, done);
                     }, 5000);
                 }
+            } else {
+                if (!obj.asset) {
+                    return done(new Error('Failed to get asset data'));
+                }
+                
+                bizweb._saveAsset(key, obj, done);
             }
-
-            if (!obj) {
-                return done(new Error('API call limited'));
-            }
-
-            if (!obj.asset) {
-                return done(new Error('Failed to get asset data'));
-            }
-            
-            bizweb._saveAsset(key, obj, done);
         }
 
         if (themeId) {
@@ -398,17 +394,13 @@ module.exports = function(grunt) {
                         bizweb.sync(filepath, done);
                     }, 5000);
                 }
-            }
+            } else {
+                if (!obj.asset) {
+                    return done(new Error('Failed to get asset data'));
+                }
 
-            if (!obj) {
-                return done(new Error('API call limited'));
+                bizweb._saveAsset(key, obj, done);
             }
-
-            if (!obj.asset) {
-                return done(new Error('Failed to get asset data'));
-            }
-
-            bizweb._saveAsset(key, obj, done);
         }
 
         if (themeId) {
@@ -441,25 +433,21 @@ module.exports = function(grunt) {
                         bizweb.downloadTheme(done);
                     }, 5000);
                 }
-            }
-
-            if (!obj) {
-                return done(new Error('API call limited'));
-            }
-
-            if (!obj.assets) {
-                return done(new Error('Failed to get theme assets list'));
-            }
-
-            async.eachSeries(obj.assets, function(asset, next) {
-                bizweb.download(path.join(basePath, asset.key), next);
-            }, function(err) {
-                if (!err) {
-                    bizweb.notify('Theme download complete.');
+            } else {
+                if (!obj.assets) {
+                    return done(new Error('Failed to get theme assets list'));
                 }
 
-                done(err);
-            });
+                async.eachSeries(obj.assets, function(asset, next) {
+                    bizweb.download(path.join(basePath, asset.key), next);
+                }, function(err) {
+                    if (!err) {
+                        bizweb.notify('Theme download complete.');
+                    }
+
+                    done(err);
+                });
+            }
         }
 
         if (themeId) {
@@ -492,25 +480,21 @@ module.exports = function(grunt) {
                         bizweb.syncTheme(done);
                     }, 5000);
                 }
-            }
-
-            if (!obj) {
-                return done(new Error('API call limited'));
-            }
-
-            if (!obj.assets) {
-                return done(new Error('Failed to get theme assets list'));
-            }
-
-            async.eachSeries(obj.assets, function(asset, next) {
-                bizweb.sync(path.join(basePath, asset.key), next);
-            }, function(err) {
-                if (!err) {
-                    bizweb.notify('Theme download complete.');
+            } else {
+                if (!obj.assets) {
+                    return done(new Error('Failed to get theme assets list'));
                 }
 
-                done(err);
-            });
+                async.eachSeries(obj.assets, function(asset, next) {
+                    bizweb.sync(path.join(basePath, asset.key), next);
+                }, function(err) {
+                    if (!err) {
+                        bizweb.notify('Theme download complete.');
+                    }
+
+                    done(err);
+                });
+            }
         }
 
         if (themeId) {
@@ -537,27 +521,23 @@ module.exports = function(grunt) {
                         bizweb.themes(done);
                     }, 5000);
                 } 
-            }
-
-            if (!obj) {
-                return done(new Error('API call limited'));
-            }
-
-            if (!obj.themes) {
-                return done(new Error('Failed to get themes list'));
-            }
-
-            obj.themes.forEach(function(theme) {
-                var str = theme.id + ' - ' + theme.name;
-
-                if (theme.role.length > 0) {
-                    str += ' (' + theme.role + ')';
+            } else {
+                if (!obj.themes) {
+                    return done(new Error('Failed to get themes list'));
                 }
 
-                grunt.log.writeln(str);
-            });
+                obj.themes.forEach(function(theme) {
+                    var str = theme.id + ' - ' + theme.name;
 
-            done();
+                    if (theme.role.length > 0) {
+                        str += ' (' + theme.role + ')';
+                    }
+
+                    grunt.log.writeln(str);
+                });
+
+                done();
+            }
         });
     };
 
