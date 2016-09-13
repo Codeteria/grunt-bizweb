@@ -103,7 +103,7 @@ module.exports = function(grunt) {
     bizweb._isWhitelistedPath = function(filepath) {
         filepath = bizweb._makePathRelative(filepath);
 
-        return filepath.match(/^(assets|config|layout|snippets|templates|locales)\//i);
+        return filepath.match(/^(assets|configs|layouts|snippets|templates|locales)\//i);
     };
 
     /*
@@ -431,7 +431,7 @@ module.exports = function(grunt) {
                     return done(err);
                 } else {
                     setTimeout(function(){
-                        bizweb.downloadTheme(filepath, done);
+                        bizweb.downloadTheme(done);
                     }, 5000);
                 }
                 
@@ -479,7 +479,7 @@ module.exports = function(grunt) {
                     return done(err);
                 } else {
                     setTimeout(function(){
-                        bizweb.syncTheme(filepath, done);
+                        bizweb.syncTheme(done);
                     }, 5000);
                 }
                 
