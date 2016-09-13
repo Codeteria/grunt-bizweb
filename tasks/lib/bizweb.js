@@ -228,12 +228,16 @@ module.exports = function(grunt) {
 
         bizweb.notify('File "' + key + '" being removed.');
 
-        function onDestroy(err) {
+        function onDestroy(err, resp) {
             if (!err) {
                 bizweb.notify('File "' + key + '" removed.');
             }
 
-            done(err);
+            if (!resp && err){
+                done(err);
+            } else {
+                done();
+            }
         }
 
         if (themeId) {
