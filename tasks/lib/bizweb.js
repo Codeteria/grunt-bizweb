@@ -233,7 +233,7 @@ module.exports = function(grunt) {
                 bizweb.notify('File "' + key + '" removed.');
             }
 
-            if (!resp && err){
+            if (resp && err){
                 done(err);
             } else {
                 done();
